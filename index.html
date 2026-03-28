@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Studio — Scan & Generate</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="badge">✦ QR Studio</div>
+        <h1>Scan & Generate <span>QR Codes</span></h1>
+        <p>Upload an image to decode, or build your own QR instantly</p>
+    </header>
+
+    <div class="card">
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="scanner"><i class="fas fa-qrcode"></i> Scan QR Code</button>
+            <button class="tab-btn" data-tab="generator"><i class="fas fa-plus-circle"></i> Generate QR Code</button>
+        </div>
+
+        <!-- SCANNER -->
+        <div class="tab-panel active" id="tab-scanner">
+            <div class="scanner-layout">
+                <div>
+                    <div class="drop-zone" id="dropZone">
+                        <input type="file" id="fileInput" accept="image/*">
+                        <img class="preview-img" id="previewImg" src="" alt="Preview">
+                        <div class="dz-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                        <p><strong>Click or drop image</strong><br>PNG, JPG, SVG, WEBP</p>
+                    </div>
+                </div>
+                <div class="scan-result">
+                    <div>
+                        <label>Scan Status</label>
+                        <div class="scan-status" id="scanStatus">
+                            <span class="dot"></span>
+                            <span id="scanStatusText">Waiting for image…</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label>Decoded Result</label>
+                        <div class="result-box empty" id="resultBox">Upload a QR code image to see the decoded content
+                            here.</div>
+                    </div>
+                    <div class="scan-actions">
+                        <button class="btn btn-primary" id="copyResultBtn" disabled><i class="fas fa-copy"></i> Copy
+                            Result</button>
+                        <button class="btn btn-secondary" id="clearBtn"><i class="fas fa-trash"></i></button>
+                    </div>
+                    <button class="btn btn-secondary" id="openLinkBtn"
+                        style="display:none; width:100%; justify-content:center;">
+                        <i class="fas fa-external-link-alt"></i> Open Link
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- GENERATOR -->
+        <div class="tab-panel" id="tab-generator">
+            <div class="gen-layout">
+                <div>
+                    <div class="type-grid" id="typeGrid">
+                        <button class="type-btn active" data-type="url"><i class="fas fa-link"></i>URL</button>
+                        <button class="type-btn" data-type="text"><i class="fas fa-font"></i>Text</button>
+                        <button class="type-btn" data-type="phone"><i class="fas fa-phone"></i>Phone</button>
+                        <button class="type-btn" data-type="sms"><i class="fas fa-sms"></i>SMS</button>
+                        <button class="type-btn" data-type="email"><i class="fas fa-envelope"></i>Email</button>
+                        <button class="type-btn" data-type="wifi"><i class="fas fa-wifi"></i>WiFi</button>
+                        <button class="type-btn" data-type="contact"><i class="fas fa-address-card"></i>Contact</button>
+                        <button class="type-btn" data-type="location"><i
+                                class="fas fa-map-marker-alt"></i>Location</button>
+                    </div>
+                    <div id="genFields"></div>
+                    <button class="btn btn-primary" id="generateBtn" style="width:100%; justify-content:center;">
+                        <i class="fas fa-bolt"></i> Generate QR Code
+                    </button>
+                </div>
+                <div class="qr-preview-area">
+                    <div class="qr-canvas-wrap" id="qrWrap">
+                        <div class="qr-placeholder" id="qrPlaceholder">
+                            <i class="fas fa-qrcode"></i>Your QR will appear here
+                        </div>
+                        <div id="qr-output"></div>
+                    </div>
+                    <div class="gen-download-btns" id="genActions" style="display:none;">
+                        <button class="btn btn-primary" id="downloadBtn" style="flex:1; justify-content:center;">
+                            <i class="fas fa-download"></i> Download PNG
+                        </button>
+                        <button class="btn-icon" id="copyQrBtn" title="Copy data"><i class="fas fa-copy"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script src="index.js"></script>
+
+</body>
+
+</html>
